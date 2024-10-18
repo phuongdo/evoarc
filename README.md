@@ -19,9 +19,19 @@ first ssh into your machine and setup the environment (must have docker installe
 
 ```bash
 git clone https://github.com/hu-po/evoarc
-pip install openai nbformat arxiv
-export OPENAI_API_KEY=...
+pip install nbformat arxiv wandb
 export WANDB_API_KEY=...
+```
+
+depending on what models you want to use as the agent, setup your keys:
+
+```bash
+pip install replicate
+export REPLICATE_API_TOKEN=...
+pip install openai 
+export OPENAI_API_KEY=...
+pip install anthropic
+export ANTHROPIC_API_KEY=...
 ```
 
 ## Usage
