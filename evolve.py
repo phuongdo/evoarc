@@ -213,7 +213,7 @@ if __name__ == "__main__":
             morph.score = score
             print(f"\t🏁\t{morph.name} scored {score}")
             morph.state = ALREADY_RAN
-            export(morph)
+            # export(morph)
         
         # write sorted leaderboard
         leaderboard = {k: v for k, v in sorted(leaderboard.items(), key=lambda item: item[1], reverse=True)}
