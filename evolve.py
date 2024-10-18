@@ -205,14 +205,15 @@ if __name__ == "__main__":
                 with open(morph_output_filepath, "r") as f:
                     morph_output = yaml.safe_load(f)
                 score = morph_output["accuracy"]
-                leaderboard[morph.name] = score
-                morph.score = score
-                print(f"\t🏁\t{morph.name} scored {score}")
-                morph.state = ALREADY_RAN
-                export(morph)
             except Exception as e:
                 print(f"\t❌\tError when running {morph.name}: {e}")
+                score = 0
                 continue
+            leaderboard[morph.name] = score
+            morph.score = score
+            print(f"\t🏁\t{morph.name} scored {score}")
+            morph.state = ALREADY_RAN
+            export(morph)
         
         # write sorted leaderboard
         leaderboard = {k: v for k, v in sorted(leaderboard.items(), key=lambda item: item[1], reverse=True)}
