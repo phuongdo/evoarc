@@ -207,6 +207,7 @@ if __name__ == "__main__":
             except Exception as e:
                 print(f"\t❌\tError when running {morph.name}: {e}")
                 score = 0
+                # TODO: run a "bugfix" mutation
                 continue
             leaderboard[morph.name] = score
             morph.score = score
