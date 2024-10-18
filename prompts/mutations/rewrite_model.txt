@@ -1,1 +1,1 @@
-Implement and improve the model code within the <model> block. Only modify the code within the <model> and </model> tags. Leave all other code the same.
+Implement and improve the model code within the <model> block. Only modify the code within the <model> and </model> tags, but respond with the full notebook. Leave all other code the same.
