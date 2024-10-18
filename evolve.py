@@ -31,6 +31,7 @@ MUTATIONS: List[str] = [
 
 # agent is used for mutations
 DEFAULT_AGENT = "gpt-4o"
+DEFAULT_MORPHS = "cnn.o1,mlp.o1,rnn.sonnet.o1,base.adam"
 
 # morph states
 NOT_RUN_YET = 0
@@ -46,9 +47,8 @@ class Morph:
 # Argument parsing
 parser = argparse.ArgumentParser()
 parser.add_argument("--seed", type=int, default=0)
-parser.add_argument("--agent", type=str, default="gpt")
-parser.add_argument("--tb", action="store_true", help="start tensorboard session")
-parser.add_argument("--protomorphs", type=str, default="cnn", help="comma separated list of protomorphs to seed evolution")
+parser.add_argument("--agent", type=str, default=DEFAULT_AGENT)
+parser.add_argument("--protomorphs", type=str, default=DEFAULT_MORPHS, help="comma separated list of protomorphs to seed evolution")
 parser.add_argument("--num_rounds", type=int, default=4, help="number of rounds to run")
 parser.add_argument("--num_morphs", type=int, default=4, help="number of morphs per round")
 parser.add_argument("--topk_morphs", type=int, default=2, help="number of top morphs to keep each round")
