@@ -48,9 +48,9 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--seed", type=int, default=0)
 parser.add_argument("--agent", type=str, default="gpt")
 parser.add_argument("--tb", action="store_true", help="start tensorboard session")
-parser.add_argument("--protomorphs", type=str, default="base", help="comma separated list of protomorphs to seed evolution")
-parser.add_argument("--num_rounds", type=int, default=2, help="number of rounds to run")
-parser.add_argument("--num_morphs", type=int, default=3, help="number of morphs per round")
+parser.add_argument("--protomorphs", type=str, default="cnn", help="comma separated list of protomorphs to seed evolution")
+parser.add_argument("--num_rounds", type=int, default=4, help="number of rounds to run")
+parser.add_argument("--num_morphs", type=int, default=4, help="number of morphs per round")
 parser.add_argument("--topk_morphs", type=int, default=2, help="number of top morphs to keep each round")
 parser.add_argument("--compute_backend", type=str, default="oop")
 args = parser.parse_args()
@@ -193,7 +193,7 @@ if __name__ == "__main__":
             try:
                 print("Setting up environment variables...")
                 os.environ["MORPH"] = morph.name
-                proc = subprocess.Popen(["bash", f"scripts/run.{args.compute_backend}.sh"])
+                proc = subprocess.Popen(["bash", f"scripts/run/{args.compute_backend}.sh"])
                 proc.wait()
                 if proc.returncode != 0:
                     print(f"\t❌\tError when running {morph.name}")
