@@ -186,14 +186,13 @@ if __name__ == "__main__":
                 continue
             else:
                 print(f"\t⏯️\tRunning {morph.name}")
-            print("Killing stale Docker processes...")
+            print("killing stale morphs...")
             subprocess.run("docker kill $(docker ps -aq)", shell=True)
             subprocess.run("docker rm $(docker ps -aq)", shell=True)
             time.sleep(2)
             try:
-                print("Setting up environment variables...")
-                os.environ["MORPH"] = morph.name
-                proc = subprocess.Popen(["bash", f"scripts/run/{args.compute_backend}.sh"])
+                print("running morph...")
+                proc = subprocess.Popen(["bash", f"scripts/{args.compute_backend}/run.sh", morph.name])
                 proc.wait()
                 if proc.returncode != 0:
                     print(f"\t❌\tError when running {morph.name}")
