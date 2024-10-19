@@ -223,7 +223,7 @@ if __name__ == "__main__":
         # ---- elimination ----
         print("Elimination:")
         doomed = []
-        for i, morph in enumerate(sorted(morphs, key=lambda m: m.score)):
+        for i, morph in enumerate(sorted(morphs, key=lambda m: m.score, reverse=True)):
             score = morph.score
             if i < args.topk_morphs:
                 print(f"\t🏆\t{morph.name} is in the top {args.topk_morphs} with score {score}")
