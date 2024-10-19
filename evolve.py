@@ -31,7 +31,16 @@ MUTATIONS: List[str] = [
 
 # agent is used for mutations
 DEFAULT_AGENT = "gpt-4o"
-DEFAULT_MORPHS = "cnn.o1,mlp.o1,rnn.sonnet.o1"
+DEFAULT_MORPHS = ",".join([
+    "cnn.o1",
+    "mlp.o1",
+    "rnn.sonnet.o1",
+    "2eab46",
+    "3ec84c",
+    "6dd30c",
+    "7aa353",
+    "7117f0",
+])
 
 # morph states
 NOT_RUN_YET = 0
@@ -167,8 +176,10 @@ if __name__ == "__main__":
     for round_num in range(args.num_rounds):
         print(f"🥊 round {round_num}")
         print("\t mutating until full morphs...")
+        protomophs = morphs.copy()
+        morphs = []
         while len(morphs) < args.num_morphs:
-            protomorph = random.choice(morphs)
+            protomorph = random.choice(protomophs)
             neomorph = mutate(protomorph, random.choice(MUTATIONS))
             morphs.append(neomorph)
         print("\t morphs:")
