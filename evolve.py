@@ -73,13 +73,16 @@ def random_arxiv_abstract(num_terms: int = 2) -> str:
     with open(query_filepath, "r") as f:
         terms = f.read().strip().split(',')
     query = " AND ".join(random.sample(terms, num_terms))
-    search_results = arxiv.Search(
-        query=query,
-        max_results=12,  # Adjust the number if necessary
-        sort_by=arxiv.SortCriterion.SubmittedDate
-    )
-    paper = random.choice(list(search_results.results()))
-    return f"This paper from arxiv contains a helpful hint:\n\n{paper.title}\n\n{paper.summary}"
+    try:
+        search_results = arxiv.Search(
+            query=query,
+            max_results=12,  # Adjust the number if necessary
+            sort_by=arxiv.SortCriterion.SubmittedDate
+        )
+        paper = random.choice(list(search_results.results()))
+        return f"This paper from arxiv contains a helpful hint:\n\n{paper.title}\n\n{paper.summary}"
+    except Exception:
+        return "The Bitter Lesson"
 
 def load_prompt(prompt_path):
     prompt_filepath = os.path.join(PROMPT_DIR, prompt_path)
