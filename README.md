@@ -86,6 +86,8 @@ Dev
 - https://claude.ai/
 - https://wandb.ai/hug/evoarc
 
+Videos
+-https://youtu.be/3ZTNps2PraM
 
 ## Video
 
