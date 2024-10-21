@@ -9,7 +9,6 @@ import uuid
 import yaml
 from typing import List
 
-import arxiv
 import nbformat
 from openai import OpenAI
 
@@ -69,6 +68,7 @@ print(f"Seed: {args.seed}")
 random.seed(args.seed)
 
 def random_arxiv_abstract(num_terms: int = 2) -> str:
+    import arxiv
     query_filepath = os.path.join(PROMPT_DIR, "arxiv_query.txt")
     with open(query_filepath, "r") as f:
         terms = f.read().strip().split(',')
