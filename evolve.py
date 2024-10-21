@@ -68,6 +68,7 @@ parser.add_argument("--num_rounds", type=int, default=12, help="number of rounds
 parser.add_argument("--num_morphs", type=int, default=12, help="number of morphs per round")
 parser.add_argument("--topk_morphs", type=int, default=6, help="number of top morphs to keep each round")
 parser.add_argument("--compute_backend", type=str, default="oop")
+parser.add_argument("--mutate_on_start", action="store_true", help="whether to mutate protomorphs at the start")
 args = parser.parse_args()
 
 # Setup and seeding
@@ -188,7 +189,10 @@ if __name__ == "__main__":
         print(f"🥊 round {round_num}")
         print("\t mutating until full morphs...")
         protomophs = morphs.copy()
-        morphs = []
+        if args.mutate_on_start:
+            morphs = []
+        else:
+            morphs = random.choices(protomophs, k=args.num_morphs)
         while len(morphs) < args.num_morphs:
             protomorph = random.choice(protomophs)
             neomorph = mutate(protomorph, random.choice(MUTATIONS))
