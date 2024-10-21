@@ -1,4 +1,4 @@
-docker run --gpus all -it --rm \
+sudo docker run --gpus all -it --rm \
 -v /home/ubuntu/evoarc:/evoarc \
 -v /home/ubuntu/evoarc/data:/kaggle/input/arc-prize-2024 \
 -v /home/ubuntu/evoarc/output:/kaggle/working \
