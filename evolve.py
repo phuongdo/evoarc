@@ -23,10 +23,16 @@ os.makedirs(MORPH_DIR, exist_ok=True)
 # choose which mutations are active
 MUTATIONS: List[str] = [
     "open_ended",
-    # "rewrite_model_and_train",
-    # "rewrite_model",
+    "rewrite_model",
+    "rewrite_data",
+    "rewrite_training",
     "tune_config",
 ]
+
+# mutation prompt modifiers (proc chance in 0 to 1)
+PROC_GLAZE_PROMPT: float = 0.5
+PROC_ARXIV_PROMPT: float = 0.8
+PROC_ARCDOC_PROMPT: float = 0.1
 
 # agent is used for mutations
 DEFAULT_AGENT = "gpt-4o"
@@ -39,6 +45,7 @@ DEFAULT_MORPHS = ",".join([
     "6dd30c",
     "7aa353",
     "7117f0",
+    "6825e2",
 ])
 
 # morph states
@@ -143,14 +150,14 @@ def mutate(protomorph: Morph, mutation_prompt_filename: str) -> Morph:
     system = load_prompt(mutation_prompt_filepath)
     format_prompt_filepath = os.path.join(PROMPT_DIR, "format.txt")
     system += f"\n{load_prompt(format_prompt_filepath)}"
-    if random.random() < 0.5:
+    if random.random() < PROC_GLAZE_PROMPT:
         print("\t\t🍯 adding glazing prompt...")
         glazing_prompt_filepath = os.path.join(PROMPT_DIR, "glazing.txt")
         system += f"\n\n{load_prompt(glazing_prompt_filepath)}"
-    if random.random() < 0.8:
+    if random.random() < PROC_ARXIV_PROMPT:
         print("\t\t📚 adding arxiv prompt...")
         system += f"\n\n{random_arxiv_abstract()}"
-    if random.random() < 0.1:
+    if random.random() < PROC_ARCDOC_PROMPT:
         print("\t\t📋 adding challenge prompt...")
         challenge_prompt_filepath = os.path.join(PROMPT_DIR, "challenge.txt")
         system += f"\n\n{load_prompt(challenge_prompt_filepath)}"
