@@ -132,6 +132,7 @@ def export(morph: Morph):
     prompt = morph_to_prompt(morph)
     reply = run_agent(export_prompt, prompt)
     export_dir = os.path.join(OUTPUT_DIR, morph.name)
+    os.makedirs(export_dir, exist_ok=True)
     reply_to_morph(reply, f"export.{morph.name}", export_dir)
 
 
