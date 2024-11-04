@@ -21,6 +21,7 @@ first ssh into your machine and setup the environment (must have docker installe
 git clone https://github.com/hu-po/evoarc
 pip install nbformat arxiv wandb
 export WANDB_API_KEY=...
+export WANDB_MODE=disabled
 ```
 
 depending on what models you want to use as the agent, setup your keys:
@@ -36,16 +37,27 @@ export ANTHROPIC_API_KEY=...
 
 ## Usage
 
-run the morph `foo` locally on `oop`:
+```bash
+nvidia-smi --list-gpus
+GPU 0: NVIDIA H100 (UUID: GPU-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)
+GPU 1: NVIDIA A100 (UUID: GPU-yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy)
+
+docker run --rm --gpus '"device=7"' nvcr.io/nvidia/jax:24.04-py3 nvidia-smi
+```
+
+run the morph `foo` locally on `fenix`:
 
 ```bash
-./scripts/test.sh oop foo
+
+export XLA_FLAGS=--xla_gpu_strict_conv_algorithm_picker=false
+export WANDB_MODE=offline
+./scripts/test.sh fenix cnn.o1
 ```
 
 start the evolutionary process using `foo` as the protomorph:
 
 ```bash
-python3 evolve.py --seed 42 --compute_backend oop --protomorphs foo
+python3 evolve.py --seed 42 --compute_backend fenix --protomorphs foo
 ```
 
 mutate a single morph:
@@ -61,6 +73,14 @@ clean out the output directory:
 ```
 
 to submit a morph to kaggle you need to "create a notebook" from the ["code" page](https://www.kaggle.com/competitions/arc-prize-2024/code) and paste in the code for your morph from `output/foo/export.ipynb`. then click "save version" and make sure to disable internet. then go to the ["submit" page](https://www.kaggle.com/competitions/arc-prize-2024/submit) and hit "submit prediction".
+
+
+## Dockerbuild
+
+```bash
+docker build -t evoarc .
+```
+
 
 ## References
 
